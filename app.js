@@ -32,6 +32,8 @@ const server = http.createServer((req, res) => {
       res.end(JSON.stringify(orders));
     }
   }
+  res.writeHead(404,{"content-type": "application/json"});
+  res.end(JSON.stringify({ error: "not found" }));
 });
 
 const Port = process.env.PORT || 3000;
