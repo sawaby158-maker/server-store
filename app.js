@@ -26,6 +26,7 @@ const server = http.createServer((req, res) => {
         return;
       }
     });
+    return;
   } else if (req.method === "GET") {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const typeReq = url.pathname.split("/")[1];
