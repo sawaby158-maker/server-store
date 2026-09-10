@@ -19,9 +19,11 @@ const server = http.createServer((req, res) => {
         orders.push(order);
         res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({ message: "thank you for your order" }));
+        return;
       } catch (error) {
         res.writeHead(400, { "content-type": "application/json" });
         res.end(JSON.stringify({ error: "invalid JSON" }));
+        return;
       }
     });
   } else if (req.method === "GET") {
@@ -30,10 +32,12 @@ const server = http.createServer((req, res) => {
     if (typeReq === "orders") {
       res.writeHead(200, { "content-type": "application/json" });
       res.end(JSON.stringify(orders));
+      return;
     }
   }
-  res.writeHead(404,{"content-type": "application/json"});
+  res.writeHead(404, { "content-type": "application/json" });
   res.end(JSON.stringify({ error: "not found" }));
+  return;
 });
 
 const Port = process.env.PORT || 3000;
