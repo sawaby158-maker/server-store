@@ -17,11 +17,11 @@ const server = http.createServer((req, res) => {
       try {
         const order = JSON.parse(body);
         orders.push(order);
-        res.writeHead(200, { "content-type": "application/json" });
+        // res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({ message: "thank you for your order" }));
         return;
       } catch (error) {
-        res.writeHead(400, { "content-type": "application/json" });
+        // res.writeHead(400, { "content-type": "application/json" });
         res.end(JSON.stringify({ error: "invalid JSON" }));
         return;
       }
