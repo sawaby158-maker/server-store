@@ -1,10 +1,7 @@
 const http = require("http");
 const fs = require("fs");
-const allowedOrigins = [
-  "https://sawaby158-maker.github.io/brand-store/",
-  "https://sawaby158-maker.github.io/dashboard-store/",
-];
 const server = http.createServer((req, res) => {
+  res.setHeader("access-control-allow-origin", "*");
   res.setHeader("access-control-allow-headers", "*");
   res.setHeader("access-control-allow-methods", "*");
 
