@@ -1,5 +1,6 @@
 const http = require("http");
 const fs = require("fs");
+let orders = [];
 const server = http.createServer((req, res) => {
   res.setHeader("access-control-allow-origin", "*");
   res.setHeader("access-control-allow-headers", "*");
@@ -7,16 +8,6 @@ const server = http.createServer((req, res) => {
 
   // _________________________________________________________________________
 
-  let orders = [];
-  fs.readFile("orders.json", "utf8", (err, data) => {
-    if (err) {
-      console.log(err);
-      res.end(JSON.stringify({ message: "sorry there information not there" }));
-      return;
-    } else if (data !== "") {
-      orders = JSON.parse(data);
-    }
-  });
   if (req.method === "OPTIONS") {
     res.writeHead(204);
     res.end();
@@ -30,14 +21,7 @@ const server = http.createServer((req, res) => {
       try {
         const order = JSON.parse(body);
         orders.push(order);
-        fs.writeFile("orders.json", JSON.stringify(orders), (err) => {
-          if (err) {
-            console.log(err);
-            res.end(JSON.stringify({ message: "error saving order" }));
-            return;
-          }
-          res.end(JSON.stringify({ message: "thank you for your order" }));
-        });
+        res.end(JSON.stringify({ message: "thank you for your order" }));
         return;
       } catch (error) {
         // res.writeHead(400, { "content-type": "application/json" });
