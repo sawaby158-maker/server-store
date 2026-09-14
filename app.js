@@ -30,7 +30,10 @@ const server = http.createServer((req, res) => {
       }
     });
     return;
-  } else if (req.method === "GET") {
+  }
+
+  // ______________________________________________
+  else if (req.method === "GET") {
     const url = new URL(req.url, `http://${req.headers.host}`);
     const typeReq = url.pathname.split("/")[1];
     if (typeReq === "orders") {
@@ -39,11 +42,28 @@ const server = http.createServer((req, res) => {
       return;
     }
   }
+
+  //  _______________________________________________________
+  else if (req.method === "DELETE") {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const pathName = url.pathname.split("/").filter((item) => item !== "");
+    const typReq = pathName[0] ? pathName[0] : null;
+    const id = pathName[1] ? pathName[1] : null;
+    if (typReq === "orders") {
+      orders = orders.filter((item) => item.id !== id);
+      res.end(JSON.stringify(orders));
+      return;
+    }
+  }
+
+  // _________________________________________
+
   res.writeHead(404, { "content-type": "application/json" });
   res.end(JSON.stringify({ message: "not found" }));
   return;
 });
 
+// _________________________________________________________
 const Port = process.env.PORT || 3000;
 
 server.listen(Port, "0.0.0.0", () => {
